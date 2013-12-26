@@ -1,10 +1,11 @@
 
-//This Program Toggles which LED is lit every Button Press
-//These Variables Won't Change:  (Constant)
+// This Program Toggles which LED is lit every Button Press
+// These Variables Won't Change:  (Constant)
 const int greenLED = 10;
 const int redLED = 11;     
 const int button = 13;   
-//These Variables Will:
+
+// These Variables Will:
 int buttonState = 0;         // current state of the button
 int lastButtonState = 0;     // previous state of the button
 int ledState = 0;            // current state of the LED's
@@ -18,17 +19,18 @@ void setup()
 
 void loop() 
 {
-  buttonState = digitalRead(button);  //Read's and Store's the button state
-  if (buttonState != lastButtonState)  //If it does not equal the previous Read
+  buttonState = digitalRead(button);  // Read's and Store's the button state
+  if (buttonState != lastButtonState)  // If it does not equal the previous Read
   {
-    if (buttonState == HIGH)  //If the button is HIGH (Pushed)
+    if (buttonState == HIGH)  // If the button is HIGH (Pushed)
     {
       if(ledState == 1)  
       {                                
         digitalWrite(greenLED, HIGH);  
         digitalWrite(redLED, LOW);  
         ledState = 0; 
-      } else                           
+      } 
+      else                           
       {                                
         digitalWrite(greenLED, LOW);
         digitalWrite(redLED, HIGH);  
@@ -36,6 +38,7 @@ void loop()
       }    
     }
   }
-  lastButtonState = buttonState; //Store’s this Read as the last state
-  delay(50);       //Ask about debounce
+  lastButtonState = buttonState; // Store’s this Read as the last state
+  delay(50);       // Ask about debounce
 }
+
