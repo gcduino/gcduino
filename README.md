@@ -4,6 +4,13 @@ Copyright Steve Dalton & Rod Christian
 
 GCDuindo is a small low cost Arduino platform created by Rod Christian and Steve Dalton of Gold Coast TechSpace
 
+
+For a work in progress project guide that we are using for the [Gold Coast TechSpace Discovery Workshops](http://discovery.gctechspace.org), please visit our [wiki](http://github.com/gctechshop/gcduino/wiki/Project-Guide)
+
+
+PCB Layouts
+===========
+
 GCDuino 
 -------
 
