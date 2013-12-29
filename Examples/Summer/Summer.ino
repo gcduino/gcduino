@@ -5,6 +5,9 @@
 // and also push out to the network to log them in an external database
 
 #include "DHT.h"
+#include <DS1307RTC.h>
+#include <Time.h>
+#include <Wire.h>
 
 #define DHTPIN 8     // what pin we're connected to
 #define DHTTYPE DHT22   // DHT 22  (AM2302)
@@ -16,6 +19,7 @@ void setup() {
 }
 
 void loop() {
+  getTime();
   tempHumid();
   uv();
   delay(1000);
@@ -61,7 +65,7 @@ int analogValueToUVIndex(int a) {
   // from http://www.dfrobot.com/wiki/index.php/UV_Sensor_(SKU:TOY0044)  
   int uv = 0;
   int val = map(a, 0, 1023, 0, 255);  
-  
+
   // Don't think it's quite linear so have just mapped this manually
   if(val >= 46) {
     uv = 1; 
@@ -100,7 +104,42 @@ int analogValueToUVIndex(int a) {
   return uv;
 }
 
+void getTime() {
+  tmElements_t tm;
+
+  if (RTC.read(tm)) {
+    Serial.print("Time = ");
+    Serial.print(tm.Day);
+    Serial.write('/');
+    Serial.print(tm.Month);
+    Serial.write('/');
+    Serial.print(tmYearToCalendar(tm.Year));
+    Serial.print(' ');
+    print2digits(tm.Hour);
+    Serial.write(':');
+    print2digits(tm.Minute);
+    Serial.write(':');
+    print2digits(tm.Second);
+    Serial.print('\n');
+  } 
+  else {
+    if (RTC.chipPresent()) {
+      Serial.println("The DS1307 is stopped.  Please run the SetTime");
+      Serial.println("example to initialize the time and begin running.");
+      Serial.println();
+    } 
+    else {
+      Serial.println("DS1307 read error!  Please check the circuitry.");
+      Serial.println();
+    }
+    delay(9000);
+  }
+}
 
 
-
-
+void print2digits(int number) {
+  if (number >= 0 && number < 10) {
+    Serial.write('0');
+  }
+  Serial.print(number);
+}
