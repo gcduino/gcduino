@@ -8,22 +8,31 @@
 #include <DS1307RTC.h>
 #include <Time.h>
 #include <Wire.h>
+#include <LiquidCrystal.h>
 
 #define DHTPIN 8     // what pin we're connected to
 #define DHTTYPE DHT22   // DHT 22  (AM2302)
 DHT dht(DHTPIN, DHTTYPE);
 
+LiquidCrystal lcd(12, 11, 4, 5, 6, 7); // Had to move standar LCD pins so they didn't clash with RTC I2C pin 2
+
 void setup() {
-  Serial.begin(115200);
+  lcd.begin(16, 2);
+  lcd.setCursor(0, 0);
+  lcd.print("Hai peeps!");
+  lcd.setCursor(0, 1);
+  lcd.print("UV/Humidity/Temp");
   dht.begin();
+  delay(2000);
 }
 
 void loop() {
+  lcd.setCursor(0, 0);
   getTime();
-  tempHumid();
+  lcd.setCursor(0, 1);
   uv();
+  tempHumid();
   delay(1000);
-
 } 
 
 //
@@ -37,15 +46,13 @@ void tempHumid() {
 
   // check if returns are valid, if they are NaN (not a number) then something went wrong!
   if (isnan(t) || isnan(h)) {
-    Serial.println("Failed to read from DHT");
+    lcd.print("DHT Fail");
   } 
   else {
-    Serial.print("Humidity: ");
-    Serial.print(h);
-    Serial.print(" %\t");
-    Serial.print("Temperature: ");
-    Serial.print(t);
-    Serial.println(" *C");
+    lcd.print(h);
+    lcd.print("% ");
+    lcd.print(t);
+    lcd.print("C");
   }
 }
 
@@ -54,9 +61,10 @@ void tempHumid() {
 //
 void uv() {
   int u;
-  u = analogRead(A0);//connect UV sensors to Analog 0      
-  Serial.print("UV Index: ");
-  Serial.println(analogValueToUVIndex(u));
+  u = analogRead(A0); //connect UV sensors to Analog 0      
+  char uvIndexString[4];
+  snprintf(uvIndexString, 4, "%02d ", analogValueToUVIndex(u));
+  lcd.print(uvIndexString);
 }
 
 // Map Analog values to a real UV index.
@@ -104,42 +112,27 @@ int analogValueToUVIndex(int a) {
   return uv;
 }
 
+// Get time from RTC and display
 void getTime() {
   tmElements_t tm;
 
+  char dateTimeText[17];
+
   if (RTC.read(tm)) {
-    Serial.print("Time = ");
-    Serial.print(tm.Day);
-    Serial.write('/');
-    Serial.print(tm.Month);
-    Serial.write('/');
-    Serial.print(tmYearToCalendar(tm.Year));
-    Serial.print(' ');
-    print2digits(tm.Hour);
-    Serial.write(':');
-    print2digits(tm.Minute);
-    Serial.write(':');
-    print2digits(tm.Second);
-    Serial.print('\n');
+    snprintf(dateTimeText, 17, "%02d%02d%02d %02d:%02d:%02d", tmYearToY2k(tm.Year), tm.Month, tm.Day, tm.Hour, tm.Minute, tm.Second);
+    lcd.print(dateTimeText);
   } 
   else {
     if (RTC.chipPresent()) {
-      Serial.println("The DS1307 is stopped.  Please run the SetTime");
-      Serial.println("example to initialize the time and begin running.");
-      Serial.println();
+      lcd.print("Run RTC Set Time");
     } 
     else {
-      Serial.println("DS1307 read error!  Please check the circuitry.");
-      Serial.println();
+      lcd.print("RTC Read Error");
     }
     delay(9000);
   }
 }
 
 
-void print2digits(int number) {
-  if (number >= 0 && number < 10) {
-    Serial.write('0');
-  }
-  Serial.print(number);
-}
+
+
