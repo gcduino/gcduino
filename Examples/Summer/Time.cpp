@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include <DS1307RTC.h>
 #include <Time.h>
 #include <Wire.h>
@@ -6,7 +7,7 @@
 #include "Utils.h"
 
 // Get time from RTC and display
-void getTime(LiquidCrystal lcd) {
+void displayTime(LiquidCrystal lcd) {
   tmElements_t tm;
 
   char dateTimeText[17];

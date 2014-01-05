@@ -5,8 +5,9 @@
 // and also push out to the network to log them in an external database
 
 #include <LiquidCrystal.h>
-#include <ArduinoUnit.h>
-#include "Utils.h"
+#include <ArduinoUnit.h> // Download from https://github.com/mmurdoch/arduinounit
+#include "Summer.h"
+#include "Utils.h" // Potentially common utilities used by this sketch
 
 LiquidCrystal lcd(12, 11, 4, 5, 6, 7); // Had to move standard LCD pins so they didn't clash with RTC I2C pin 2
 
@@ -17,19 +18,19 @@ void setup() {
   lcd.print("Hai peeps!");
   lcd.setCursor(0, 1);
   lcd.print("UV/Humidity/Temp");
-  startDht();
+  startTempHumiditySensor();
   delay(2000);
 }
 
 void loop() {
-  // Run the tests first
+  // Run the tests first, comment out if you don't need them
   Test::run();
   
   lcd.setCursor(0, 0);
-  getTime(lcd);
+  displayTime(lcd);
   lcd.setCursor(0, 1);
-  uv(lcd);
-  tempHumid(lcd);
+  displayUvIndex(lcd);
+  displayTempHumidity(lcd);
   delay(1000);
 } 
 

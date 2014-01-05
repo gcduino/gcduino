@@ -7,14 +7,14 @@
 #define DHTTYPE DHT22   // DHT 22  (AM2302)
 DHT dht(DHTPIN, DHTTYPE);
 
-void startDht() {
+void startTempHumiditySensor() {
   dht.begin();
 }
 
 //
 // Read the DHT22 Temp/Humidity sensor
 //
-void tempHumid(LiquidCrystal lcd) {  
+void displayTempHumidity(LiquidCrystal lcd) {  
   // Reading temperature or humidity takes about 250 milliseconds!
   // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
   float h = dht.readHumidity();
