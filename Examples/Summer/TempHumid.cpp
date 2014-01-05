@@ -1,5 +1,6 @@
-#include <DHT.h>
+#include <Arduino.h>
 #include <LiquidCrystal.h>
+#include <DHT.h>
 
 #include "Utils.h"
 

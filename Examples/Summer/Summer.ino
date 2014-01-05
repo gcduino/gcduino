@@ -9,6 +9,13 @@
 #include "Summer.h"
 #include "Utils.h" // Potentially common utilities used by this sketch
 
+// Have to include these up here for us to be able to use the libraries - FIXME
+#include <DHT.h>
+#include <DS1307RTC.h>
+#include <Time.h>
+#include <Wire.h>
+// End of hack.
+
 LiquidCrystal lcd(12, 11, 4, 5, 6, 7); // Had to move standard LCD pins so they didn't clash with RTC I2C pin 2
 
 void setup() {
