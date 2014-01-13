@@ -13,8 +13,11 @@ const int M1_Dir = 7;    //Direction
 const int M2_Speed = 5;   //Speed
 const int M2_Dir = 4;     //Direction
 
-const int BUMP = 0;
+const int BUMP_INTERUPT = 0;
+
+const int BUMP = 2;  // Actual Bump sensor pin
 const int LED = 9;   // GCDuino Built-in LED
+const int PIEZO = 10;   // Piezo Buzzer
 
 int Max_Speed = 250;  // 0 = Stopped, 250 = Fast 
 
@@ -27,17 +30,19 @@ void setup()
   pinMode(M2_Speed, OUTPUT);
   pinMode(M2_Dir, OUTPUT); 
   pinMode(LED, OUTPUT);
-  digitalWrite(LED, HIGH);  //Turns LED On to let you know Code is running
+  pinMode(PIEZO, OUTPUT);
   
-  attachInterrupt(BUMP, interuptHandler, CHANGE);
+  digitalWrite(BUMP, HIGH); // turn on pull up resistor for flow sensor on pin 2
+  attachInterrupt(BUMP_INTERUPT, interuptHandler, CHANGE);
   
-  LEDoff();
+  LEDon();
 }
 
 void loop()
 {
   if(bumped) {
     turn();
+    beep(50);
   }
   M_Fwd();
 }
@@ -122,3 +127,12 @@ void M_Stop()
   M1_Stop();
   M2_Stop();
 }
+
+void beep(int delayms){
+  analogWrite(PIEZO, 20);      // Almost any value can be used except 0 and 255
+                           // experiment to get the best tone
+  delay(delayms);          // wait for a delayms ms
+  analogWrite(PIEZO, 0);       // 0 turns it off
+  delay(delayms);          // wait for a delayms ms   
+}  
+
