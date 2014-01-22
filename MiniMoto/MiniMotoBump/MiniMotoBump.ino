@@ -37,7 +37,9 @@ void setup()
 void loop()
 {
   if(bumped) {
+    LEDon();
     turn();
+    LEDoff();
   }
   M_Fwd();
 }
@@ -50,6 +52,8 @@ void interuptHandler()
 void turn() { 
   M_Rev();
   delay(100);
+  M_Stop();
+  playMelody();
   M1_Fwd();
   M2_Rev();
   delay(400);  
