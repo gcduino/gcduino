@@ -14,9 +14,9 @@ PCB Layouts
 GCDuino 
 -------
 
-![PCB](https://raw.github.com/gctechshop/gcduino/master/GCDuino.jpg)
+![PCB](https://raw.github.com/gctechshop/gcduino/master/images/gcduino/pcb.jpg)
 
 GCDuino MiniMoto Shield
 -----------------------
 
-![PCB](https://raw.github.com/gctechshop/gcduino/master/GCD_MiniMoto.jpg)
+![PCB](https://raw.github.com/gctechshop/gcduino/master/images/minimoto/pcb.jpg)
