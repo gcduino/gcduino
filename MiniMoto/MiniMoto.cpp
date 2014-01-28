@@ -1,5 +1,5 @@
 /************************************************************************************************
-**                         MiniMoto & GCDuino Code Example                                     **
+**                         MiniMoto Library                                                    **
 **     To set Direction: digitalWrite(M1_Dir or M2_Dir, HIGH = Reverse, LOW = Fowards);        **
 **     To set Speed: analogWrite(M1_Speed or M2_Speed, 0-250);                                 **
 **           NOTE: When going Forwards 0 = Slow, 250 = Fast                                    **
@@ -7,46 +7,30 @@
 **                                                                                             **
 **    Written by Rod Christian                                                    03/12/2013   **
 ************************************************************************************************/
-const int LED = 9;
 
-const int M1_Speed = 6;  //Speed
-const int M1_Dir = 7;    //Direction
-const int M2_Speed = 5;   //Speed
-const int M2_Dir = 4;     //Direction
+#include <Arduino.h>
+#include "MiniMoto.h"
 
-//const int LED = A0;   //GCDuino Built-in LED
+int Max_Speed = 0;
 
-int Max_Speed = 250;  // 0 = Stopped, 250 = Fast 
+void initializeMiniMoto() {
+	initializeMiniMoto(250);
+}
 
-void setup()
+void initializeMiniMoto(int maxSpeed) 
 {
+  changeMaxSpeed(maxSpeed);
+	
   pinMode(M1_Speed, OUTPUT);  //Set All pin's as Outputs
   pinMode(M1_Dir, OUTPUT);
   pinMode(M2_Speed, OUTPUT);
   pinMode(M2_Dir, OUTPUT); 
   pinMode(LED, OUTPUT);
-  digitalWrite(LED, HIGH);  //Turns LED On to let you know Code is running
 }
 
-void loop()
-{
-  LEDon();
-  M1_Rev();
-  M2_Fwd();
-  delay(10000);
-  LEDoff();
-  M_Rev();
-  delay(2000);
-  LEDon();
-  M_Stop();
-  delay(250);
-  M_Fwd();
-  LEDoff();
-  delay(3000);
-  M1_Fwd();
-  M2_Rev();
+void changeMaxSpeed(int maxSpeed) {
+  Max_Speed = maxSpeed;
 }
-
 
 void LEDon()
 {
@@ -57,6 +41,7 @@ void LEDoff()
 {
   digitalWrite(LED, LOW);
 }
+
 //M1 Control (Right Motor)
 void M1_Rev()
 {
