@@ -1,6 +1,6 @@
 GCDuino 
 =======
-Copyright Steve Dalton & Rod Christian
+© 2013-2014 Steve Dalton & Rod Christian
 
 
 GCDuindo is a small low cost Arduino platform created by [Rod Christian](http://github.com/Rod-Refactor) and [Steve Dalton](http://github.com/spidie) of [Gold Coast TechSpace](http://gctechspace.org)
@@ -8,7 +8,7 @@ GCDuindo is a small low cost Arduino platform created by [Rod Christian](http://
 How to checkout this code
 -------------------------
 
-  git clone git@github.com:gctechshop/gcduino.git
+    git clone git@github.com:gctechshop/gcduino.git
 
 Project Guide & Documentation
 -----------------------------
