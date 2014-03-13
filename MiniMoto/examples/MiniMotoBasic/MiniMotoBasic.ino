@@ -12,6 +12,7 @@
 
 void setup()
 {
+  initializeMiniMoto();
   digitalWrite(LED, HIGH);  //Turns LED On to let you know Code is running
 }
 
