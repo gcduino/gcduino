@@ -13,4 +13,4 @@ How to checkout this code
 Project Guide & Documentation
 -----------------------------
 
-For a work in progress project guide that we are using for the [Gold Coast TechSpace Discovery Workshops](http://discovery.gctechspace.org), please visit our [wiki](http://github.com/gctechshop/gcduino/wiki/Project-Guide)
+For a work in progress project guide that we are using for the [Gold Coast TechSpace Discovery Workshops](http://discovery.gctechspace.org), please visit our [wiki](http://github.com/gcduino/gcduino/wiki)
